@@ -18,11 +18,15 @@ func oauthURL(c *gin.Context) {
 
 func oauthCallback(c *gin.Context) {
 	code := c.Query("code")
-	proxyedClient := &http.Client{
-		Timeout:   10 * time.Second,
-		Transport: &http.Transport{Proxy: http.ProxyURL(proxyURL)},
+
+	if proxyURL.String() != "" {
+		proxyedClient := &http.Client{
+			Timeout:   10 * time.Second,
+			Transport: &http.Transport{Proxy: http.ProxyURL(proxyURL)},
+		}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, proxyedClient)
 	}
-	ctx = context.WithValue(ctx, oauth2.HTTPClient, proxyedClient)
+
 	token, err := oauthClient.Exchange(ctx, code)
 	if err != nil {
 		c.JSON(200, gin.H{
