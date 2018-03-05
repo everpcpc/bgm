@@ -39,7 +39,7 @@ func main() {
 		},
 	}
 
-	r := gin.Default()
+	r := gin.New()
 
 	auth := r.Group("/oauth")
 	{
