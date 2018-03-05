@@ -1,0 +1,7 @@
+{
+    "client_id":"",
+    "client_secret":"",
+    "http_proxy": "",
+    "domain": "http://localhost:8080",
+    "listen": ":8080"
+}
