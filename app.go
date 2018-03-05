@@ -19,6 +19,7 @@ var (
 
 func main() {
 	viper.SetConfigName("config")
+	viper.AddConfigPath("/etc/bgm")
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
 	if err != nil {
