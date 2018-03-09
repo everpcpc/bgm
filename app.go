@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 	"net/url"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,7 @@ var (
 	ctx         = context.Background()
 	oauthClient *oauth2.Config
 	proxyURL    *url.URL
+	clientID    string
 )
 
 func main() {
@@ -21,14 +23,15 @@ func main() {
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
 	if err != nil {
-		panic(err)
+		log.Fatalf("read config error: %+v", err)
 	}
 	proxyURL, err = url.Parse(viper.GetString("http_proxy"))
 	if err != nil {
-		panic(err)
+		log.Fatalf("parse http_proxy error: %+v", err)
 	}
+	clientID = viper.GetString("client_id")
 	oauthClient = &oauth2.Config{
-		ClientID:     viper.GetString("client_id"),
+		ClientID:     clientID,
 		ClientSecret: viper.GetString("client_secret"),
 		RedirectURL:  viper.GetString("domain") + "/oauth/callback",
 		Endpoint: oauth2.Endpoint{
