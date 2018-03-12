@@ -46,6 +46,7 @@ func main() {
 	{
 		auth.GET("/callback", oauthCallback)
 		auth.GET("/url", oauthURL)
-		r.Run(viper.GetString("listen"))
 	}
+
+	r.Run(viper.GetString("listen"))
 }

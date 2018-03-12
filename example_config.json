@@ -2,6 +2,6 @@
     "client_id":"",
     "client_secret":"",
     "http_proxy": "",
-    "domain": "http://localhost:8080",
-    "listen": ":8080"
+    "domain": "http://localhost:31415",
+    "listen": ":31415"
 }

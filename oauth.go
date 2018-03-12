@@ -42,7 +42,7 @@ func oauthCallback(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"OK":    true,
+		"ok":    true,
 		"token": token,
 	})
 }
