@@ -2,20 +2,30 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 )
 
-func oauthURL(c *gin.Context) {
+func oauthLogin(c *gin.Context) {
 	url := oauthClient.AuthCodeURL("", oauth2.AccessTypeOnline)
 	c.Redirect(302, url)
 }
 
 func oauthCallback(c *gin.Context) {
+	session := sessions.Default(c)
 	code := c.Query("code")
+	var err error
+
+	defer func() {
+		if err != nil {
+			c.JSON(500, gin.H{"ok": false, "err": err.Error()})
+		}
+	}()
 
 	var httpClient *http.Client
 	if proxyURL.String() != "" {
@@ -32,16 +42,39 @@ func oauthCallback(c *gin.Context) {
 
 	token, err := oauthClient.Exchange(ctx, code)
 	if err != nil {
-		c.JSON(200, gin.H{
-			"ok":      false,
-			"err_msg": err.Error(),
-		})
 		return
 	}
+
+	var uid int
+	_uid := token.Extra("user_id")
+	if _uid == nil {
+		err = fmt.Errorf("uid not found")
+		return
+	}
+	switch v := _uid.(type) {
+	case string:
+		err = fmt.Errorf("uid is string: %+v", v)
+		return
+	case int:
+		uid = v
+	case float64:
+		uid = int(v)
+	default:
+		err = fmt.Errorf("uid invalid: %+v", v)
+		return
+	}
+
+	err = storeToken(uid, token)
+	if err != nil {
+		return
+	}
+
+	session.Set("uid", uid)
+	session.Save()
 
 	c.JSON(200, gin.H{
 		"ok":    true,
 		"token": token,
-		"uid":   token.Extra("user_id"),
+		"uid":   uid,
 	})
 }

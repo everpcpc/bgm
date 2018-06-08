@@ -3,5 +3,7 @@
     "client_secret":"",
     "http_proxy": "",
     "domain": "http://localhost:31415",
-    "listen": ":31415"
+    "listen": ":31415",
+    "redis": "localhost:6379",
+    "secret": "xxxxxxxxxx"
 }
