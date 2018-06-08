@@ -11,9 +11,10 @@ import (
 
 func oauthURL(c *gin.Context) {
 	url := oauthClient.AuthCodeURL("", oauth2.AccessTypeOnline)
-	c.JSON(200, gin.H{
-		"url": url,
-	})
+	c.Redirect(302, url)
+	// c.JSON(200, gin.H{
+	// 	"url": url,
+	// })
 }
 
 func oauthCallback(c *gin.Context) {
