@@ -9,10 +9,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-type oauthExtra struct {
-	userID string `json:"user_id"`
-}
-
 func oauthURL(c *gin.Context) {
 	url := oauthClient.AuthCodeURL("", oauth2.AccessTypeOnline)
 	c.Redirect(302, url)
@@ -43,9 +39,9 @@ func oauthCallback(c *gin.Context) {
 		return
 	}
 
-	extra := &oauthExtra{}
 	c.JSON(200, gin.H{
 		"ok":    true,
-		"token": token.WithExtra(extra),
+		"token": token,
+		"uid":   token.Extra("user_id"),
 	})
 }
