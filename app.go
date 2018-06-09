@@ -44,10 +44,13 @@ func main() {
 		},
 	}
 
-	redisClient = redis.NewClient(&redis.Options{
-		Addr: viper.GetString("redis"),
-		DB:   0,
-	})
+	redisAddr := viper.GetString("redis")
+	if redisAddr != "" {
+		redisClient = redis.NewClient(&redis.Options{
+			Addr: redisAddr,
+			DB:   0,
+		})
+	}
 
 	r := gin.New()
 
