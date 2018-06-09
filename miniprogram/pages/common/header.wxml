@@ -1,0 +1,6 @@
+<!--pages/common/header.wxml-->
+<view class="header">
+  <view class="search">
+    <input bindtap="goSearch" placeholder="search" disabled/>
+  </view>
+</view>

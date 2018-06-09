@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<include src="../common/header.wxml" />
+<view class="container">
+  <view class="userinfo">
+    <block wx:if="{{!uid}}">
+      <button type="primary" bindtap="scanLogin"> Scan to login </button>
+      <text>get qrcode:</text>
+      <text>https://bgm.everpcpc.com</text>
+    </block>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatar.large}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickname}}</text>
+    </block>
+  </view>
+</view>
+<include src="../common/footer.wxml" />

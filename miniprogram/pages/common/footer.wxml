@@ -1,0 +1,6 @@
+<!--pages/common/footer.wxml-->
+<view class="footer">
+  <view class="nav">
+    <text></text>
+  </view>
+</view>

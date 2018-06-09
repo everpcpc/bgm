@@ -1,0 +1,15 @@
+<!--pages/search/search.wxml-->
+<view class="search">
+  <form bindsubmit='bindSearch'>
+    <picker name="type" value="{{searchTypes[index].id}}" range="{{searchTypes}}" range-key="{{'name'}}" bindchange="bindPickerChange">
+      <view class="picker">
+        {{searchTypes[index].name}}
+      </view>
+    </picker>
+    <input name="text" placeholder="search" confirm-type="search" focus />
+    <button form-type='submit'>go</button>
+  </form>
+</view>
+
+<view class="container">
+</view>

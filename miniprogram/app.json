@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/progress/progress"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fe7f9c",
+    "navigationBarTitleText": "番組計画",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "white",
+    "color": "grey",
+    "selectedColor": "#fe7f9c",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "home"
+      },
+      {
+        "pagePath": "pages/progress/progress",
+        "text": "progress"
+      }
+    ]
+  }
+}

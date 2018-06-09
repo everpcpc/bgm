@@ -1,0 +1,5 @@
+<!--pages/progress/progress.wxml-->
+<include src="../common/header.wxml" />
+<view class="container">
+</view>
+<include src="../common/footer.wxml" />

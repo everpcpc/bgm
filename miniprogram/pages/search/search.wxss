@@ -1,0 +1,12 @@
+/* pages/search/search.wxss */
+
+
+
+.search {
+  display:flex;
+}
+
+
+.search text {
+  color: white;
+}
