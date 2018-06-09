@@ -2,10 +2,16 @@ package main
 
 import (
 	"encoding/json"
+	"net/url"
 	"strconv"
 	"time"
 
 	"golang.org/x/oauth2"
+)
+
+const (
+	// ref: https://developer.google.com/chart/infographics/docs/qr_codes
+	qrURL = "https://chart.googleapis.com/chart?"
 )
 
 func getUIDKey(uid int) string {
@@ -28,4 +34,12 @@ func getToken(uid int) (token *oauth2.Token, err error) {
 	token = &oauth2.Token{}
 	err = json.Unmarshal(ret, token)
 	return
+}
+
+func getQRCode(data string) string {
+	v := url.Values{}
+	v.Add("cht", "qr")
+	v.Add("chs", "400x400")
+	v.Add("chl", data)
+	return qrURL + v.Encode()
 }

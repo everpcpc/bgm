@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -72,9 +74,10 @@ func oauthCallback(c *gin.Context) {
 	session.Set("uid", uid)
 	session.Save()
 
-	c.JSON(200, gin.H{
-		"ok":    true,
-		"token": token,
-		"uid":   uid,
-	})
+	data, err := json.Marshal(token)
+	if err != nil {
+		return
+	}
+	c.Redirect(302, getQRCode(base64.StdEncoding.EncodeToString(data)))
+
 }
