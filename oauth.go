@@ -74,7 +74,7 @@ func oauthCallback(c *gin.Context) {
 	session.Set("uid", uid)
 	session.Save()
 
-	data, err := json.Marshal(token)
+	data, err := json.Marshal(qrData{UID: uid, Token: token})
 	if err != nil {
 		return
 	}

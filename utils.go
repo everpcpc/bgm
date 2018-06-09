@@ -14,6 +14,11 @@ const (
 	qrURL = "https://chart.googleapis.com/chart?"
 )
 
+type qrData struct {
+	UID   int           `json:"uid"`
+	Token *oauth2.Token `json:"token"`
+}
+
 func getUIDKey(uid int) string {
 	return "token_" + strconv.Itoa(uid)
 }
